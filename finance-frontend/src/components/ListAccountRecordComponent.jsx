@@ -5,7 +5,7 @@ const ListAccountRecordComponent = () => {
 
     const [accountRecords, setAccountRecords] = useState([]);
     useEffect(() =>{
-        listAccountRecords.then((response) => {
+        listAccountRecords().then((response) => {
             setAccountRecords(response.data);
         }).catch(error => {
             console.error(error);
@@ -31,6 +31,7 @@ const ListAccountRecordComponent = () => {
                 {
                     accountRecords.map(accountRecord =>
                         <tr key={accountRecord.id}>
+                            <td>{accountRecord.id}</td>
                             <td>{accountRecord.accountType}</td>
                             <td>{accountRecord.date}</td>
                             <td>{accountRecord.value}</td>
