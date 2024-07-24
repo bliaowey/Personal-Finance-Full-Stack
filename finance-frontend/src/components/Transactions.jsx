@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -48,14 +49,6 @@ function createData(id, date, name, shipTo, paymentMethod, amount) {
     212.79,
   ),
 ]; */
-const [accountRecords, setAccountRecords] = useState([]);
-useEffect(() =>{
-    listAccountRecords().then((response) => {
-        setAccountRecords(response.data);
-    }).catch(error => {
-        console.error(error);
-    })
-}, []);
 
 
 function preventDefault(event) {
@@ -63,6 +56,14 @@ function preventDefault(event) {
 }
 
 export default function Transactions() {
+    const [accountRecords, setAccountRecords] = useState([]);
+    useEffect(() =>{
+        listAccountRecords().then((response) => {
+            setAccountRecords(response.data);
+        }).catch(error => {
+            console.error(error);
+        })
+    }, []);
   return (
     <React.Fragment>
       <Title>Recent Orders</Title>
