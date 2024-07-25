@@ -21,6 +21,7 @@ import { mainListItems, secondaryListItems } from './ListItems';
 import Chart from './Chart';
 //import Deposits from './Deposits';
 import Transactions from './Transactions';
+import AddTransaction from './AddTransaction';
 
 function Copyright(props) {
   return (
@@ -176,7 +177,7 @@ export default function Dashboard() {
                   <Chart />
                 </Paper>
               </Grid>
-              {/* Recent Deposits */}
+              {/* Add a Transaction */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
@@ -186,6 +187,7 @@ export default function Dashboard() {
                     height: 240,
                   }}
                 >
+                  <AddTransaction />
                 </Paper>
               </Grid>
               {/* Recent Transactions */}
