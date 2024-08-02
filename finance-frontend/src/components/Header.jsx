@@ -4,6 +4,11 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
+/* I SEPARATED THE HEADER FROM THE DASHBOARD
+THE PROBLEM HERE IS THAT toggleDrawer  IS NOT DEFINED. IT IS USED IN Dashboard.jsx BUT NEVER
+DEFINED, AND IT WORKS THERE. I LOOKED INTO @mui BUT I COULDN'T FIND HOW TO USE IT.
+ */
+
 export default function Header() {
     return (
         <Toolbar

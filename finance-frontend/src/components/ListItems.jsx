@@ -9,6 +9,23 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import { useNavigate } from 'react-router-dom';
+
+/* THIS CLASS IS THE SIDEBAR WITH ALL OF THE BUTTONS
+
+THE PROBLEM HERE IS THAT THE NAVIGATOR NEEDS TO BE DECLARED IN THE RETURN STATEMENT
+OF A FUNCTION. 
+HOWEVER, BOTH COMPONENTS ARE DECLARED AS VARIABLES NOT FUNCTIONS. I TRIED TO CONVERT THEM
+TO FUNCTIONS, BUT THAT CAUSED MORE PROBLEMS.
+
+const navigator = useNavigate();
+
+function addTransaction() {
+    navigator('/add-transaction');
+}
+*/
+
+
 
 export const mainListItems = (
   <React.Fragment>
@@ -18,11 +35,12 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
+    {/* onClick = {addTransaction} goes in the <ListItemButton> field below */}
     <ListItemButton>
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
-      <ListItemText primary="Orders" />
+      <ListItemText primary="Add Transaction" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
