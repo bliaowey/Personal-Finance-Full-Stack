@@ -4,14 +4,14 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
-/* I SEPARATED THE HEADER FROM THE DASHBOARD
-THE PROBLEM HERE IS THAT toggleDrawer  IS NOT DEFINED. IT IS USED IN Dashboard.jsx BUT NEVER
-DEFINED, AND IT WORKS THERE. I LOOKED INTO @mui BUT I COULDN'T FIND HOW TO USE IT.
- */
-
 export default function Header() {
+    const [open, setOpen] = React.useState(true);
+    const toggleDrawer = () => {
+      setOpen(!open);
+    }
     return (
         <Toolbar
+            background-color="blue"
             sx={{
               pr: '24px', // keep right padding when drawer closed
             }}
@@ -20,8 +20,7 @@ export default function Header() {
               edge="start"
               color="inherit"
               aria-label="open drawer"
-              //onClick={toggleDrawer}
-              //ERROR: toggleDrawer NOT DEFINED
+              onClick={toggleDrawer}
               sx={{
                 marginRight: '36px',
                 ...(open && { display: 'none' }),
