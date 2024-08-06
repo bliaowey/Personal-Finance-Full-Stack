@@ -9,6 +9,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import { Link } from 'react-router-dom';
 
 /* THIS CLASS IS THE SIDEBAR WITH ALL OF THE BUTTONS
 
@@ -21,24 +22,23 @@ TO FUNCTIONS, BUT THAT CAUSED MORE PROBLEMS.
 
 export const mainListItems = (
   <React.Fragment>
-    <ListItemButton>
+    <ListItemButton component = {Link} to='/'>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
-    {/* onClick = {addTransaction} goes in the <ListItemButton> field below */}
-    <ListItemButton >
+    <ListItemButton component = {Link} to="/add-transaction">
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
       <ListItemText primary="Add Transaction" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton component = {Link} to='/all-transactions'>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="All Transactions" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>

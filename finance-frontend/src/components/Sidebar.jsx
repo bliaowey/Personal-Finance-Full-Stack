@@ -42,11 +42,6 @@ export default function Sidebar() {
     const toggleDrawer = () => {
       setOpen(!open);
     }
-
-    const navigator = useNavigate();
-    function addTransaction() {
-        navigator('/add-transaction');
-    }
     return (
         <Drawer variant="permanent" open={open}>
         <Toolbar
