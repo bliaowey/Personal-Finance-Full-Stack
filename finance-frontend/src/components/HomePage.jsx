@@ -5,7 +5,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Chart from './Chart';
-import Transactions from './Transactions';
+import RecentTransactions from './RecentTransactions';
 
 export default function HomePage() {
     return(
@@ -52,7 +52,7 @@ export default function HomePage() {
                     {/* Summary of the last 5 transactions */}
                     <Grid item xs={12}>
                         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                        <Transactions />
+                        <RecentTransactions />
                         </Paper>
                     </Grid>
                     </Grid>

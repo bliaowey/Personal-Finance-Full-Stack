@@ -58,7 +58,7 @@ export default function Header() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-                Dashboard
+                Personal Finance App
             </Typography>
           </Toolbar>
         </AppBar>
