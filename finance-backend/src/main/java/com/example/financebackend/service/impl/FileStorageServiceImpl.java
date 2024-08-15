@@ -9,12 +9,14 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 import com.example.financebackend.service.FileStorageService;
+import lombok.AllArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
-
+@Service
+@AllArgsConstructor
 public class FileStorageServiceImpl implements FileStorageService {
 
     private final Path root = Paths.get("uploads");

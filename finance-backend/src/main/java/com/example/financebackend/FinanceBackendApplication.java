@@ -11,7 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class FinanceBackendApplication implements CommandLineRunner{
-
+	@Resource
 	FileStorageService storageService;
 
 	public static void main(String[] args) {

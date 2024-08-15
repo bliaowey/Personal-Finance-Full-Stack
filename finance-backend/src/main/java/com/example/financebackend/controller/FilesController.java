@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import com.example.financebackend.entity.FileInfo;
 import com.example.financebackend.message.ResponseMessage;
 import com.example.financebackend.service.FileStorageService;
+import lombok.AllArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-@Controller
+@AllArgsConstructor
+@RestController
 @RequestMapping("/file")
 public class FilesController {
     @Autowired
