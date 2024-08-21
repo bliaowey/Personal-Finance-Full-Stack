@@ -11,6 +11,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import UploadFile from './components/UploadFile'
 
 function Copyright(props) {
   return (
@@ -42,6 +43,8 @@ function App() {
               <Route path='/add-transaction' element = {<AddTransaction />}></Route>
               {/* http://localhost:3000/all-transactions */}
               <Route path='/all-transactions' element = {<Transactions />}></Route>
+              {/* http://localhost:3000/upload-file */}
+              <Route path='upload-file' element={<UploadFile />}></Route>
             </Routes>
           </Box>
         <Copyright sx={{ pt: 4 }} />

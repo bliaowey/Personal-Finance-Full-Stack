@@ -40,11 +40,11 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="All Transactions" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton component = {Link} to='/upload-file'>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="Upload File" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
