@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 @AllArgsConstructor
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/file")
 public class FilesController {

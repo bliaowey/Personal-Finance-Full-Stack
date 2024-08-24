@@ -44,7 +44,7 @@ function App() {
               {/* http://localhost:3000/all-transactions */}
               <Route path='/all-transactions' element = {<Transactions />}></Route>
               {/* http://localhost:3000/upload-file */}
-              <Route path='upload-file' element={<UploadFile />}></Route>
+              <Route path='/upload-file' element={<UploadFile />}></Route>
             </Routes>
           </Box>
         <Copyright sx={{ pt: 4 }} />

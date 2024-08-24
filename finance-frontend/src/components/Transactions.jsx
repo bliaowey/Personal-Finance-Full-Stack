@@ -22,35 +22,37 @@ export default function Transactions() {
   return (
     <React.Fragment>
       <Container maxWidth="lg" sx={{ mt: 10, mb: 4 }}>
-        <Title>All Transactions</Title>
-          <Table size="big">
-            <TableHead>
-              <TableRow>
-                <th>Account Record ID</th>
-                <th>Account Type</th>
-                <th>Date</th>
-                <th>Value</th>
-                <th>Category ID</th>
-                <th>Category Type</th>
-                <th>Comments</th>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {
-                accountRecords.map(accountRecord =>
-                    <tr key={accountRecord.id}>
-                        <td>{accountRecord.id}</td>
-                        <td>{accountRecord.accountType}</td>
-                        <td>{accountRecord.date}</td>
-                        <td>{accountRecord.value}</td>
-                        <td>{accountRecord.categoryId}</td>
-                        <td>{accountRecord.categoryType}</td>
-                        <td>{accountRecord.comments}</td>
-                    </tr>
-                    )
-                }
-            </TableBody>
-          </Table>
+        <div className='card'>
+          <Title>All Transactions</Title>
+            <Table size="big">
+              <TableHead>
+                <TableRow>
+                  <th>Account Record ID</th>
+                  <th>Account Type</th>
+                  <th>Date</th>
+                  <th>Value</th>
+                  <th>Category ID</th>
+                  <th>Category Type</th>
+                  <th>Comments</th>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {
+                  accountRecords.map(accountRecord =>
+                      <tr key={accountRecord.id}>
+                          <td>{accountRecord.id}</td>
+                          <td>{accountRecord.accountType}</td>
+                          <td>{accountRecord.date}</td>
+                          <td>{accountRecord.value}</td>
+                          <td>{accountRecord.categoryId}</td>
+                          <td>{accountRecord.categoryType}</td>
+                          <td>{accountRecord.comments}</td>
+                      </tr>
+                      )
+                  }
+              </TableBody>
+            </Table>
+          </div>
         </Container>
     </React.Fragment>
   );

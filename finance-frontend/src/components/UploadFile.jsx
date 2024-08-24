@@ -1,122 +1,80 @@
-import React, { Component } from "react";
-import UploadFileService from "../services/UploadFileService";
+import React, { Component, useState } from "react";
+import { Container } from '@mui/material';
+import Title from "./Title";
+import uploadFileService from "../services/UploadFileService";
 
-export default class UploadFile extends Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            selectedFiles: undefined,
-            currentFile: undefined,
-            progress: 0,
-            message: "",
-
-            fileInfos: [],
-        }
+export default function UploadFile() {
+    const [selectedFile, setSelectedFile] = useState([]);
+    const [currentFile, setCurrentFile] = useState([]);
+    const [progress, setProgress] = useState(0);
+    const [message, setMessage] = useState('');
+    const [fileInfos, setFileInfos] = useState([]);
+    
+    function selectFile(e) {
+        // console.log("asdf");
+        // console.log(e.target.files[0]);
+        setSelectedFile(e.target.files);
+        console.log(selectedFile);
     }
-
-    selectFile(event) {
-        this.setState({
-            selectedFiles: event.target.files,
-        })
-    }
-
-    upload() {
-        let currentFile = this.state.selectedFiles[0];
-
-        this.setState({
-            progress: 0,
-            currentFile: currentFile,
-        });
-
-        UploadFileService.upload(currentFile, (event) => {
-            this.setState({
-                progress: Math.round((100 * event.loaded) / event.total),
-            });
+    
+    function upload() {
+        setProgress(0);
+        setCurrentFile(selectedFile);
+        console.log(selectedFile);
+        console.log(currentFile);
+    
+        uploadFileService(currentFile, (event) => {
+            setProgress(Math.round((100 * event.loaded) / event.total));
         })
         .then((response) => {
-            this.setState({
-                message: response.data.message,
-            });
-            return UploadFileService.getFiles();
+            setMessage(response.data.message);
         })
         .then((files) => {
-            this.setState({
-                fileInfos: files.data,
-            });
+            setFileInfos(files.data);
         })
         .catch(() => {
-            this.setState({
-                progress: 0,
-                message: "Could not upload ths file",
-                currentFile: undefined,
-            });
+            setProgress(0);
+            setMessage("Could not upload the file");
+            setCurrentFile(null);
         });
-
-        this.setState({
-            selectedFiles: undefined,
-        })
     }
 
-    componentDidMount() {
-        UploadFileService.getFiles().then((response) => {
-          this.setState({
-            fileInfos: response.data,
-          });
-        });
-      }
-
-    render() {
-        const {
-            selectedFiles,
-            currentFile,
-            progress,
-            message,
-            fileInfos,
-        } = this.state;
-
-        return (
-            <div>
-                {currentFile && (
-                    <div className="progress">
-                        <div
-                            className="progress-bar progress-bar-info progress-bar-striped"
-                            role="processbar"
-                            aria-valuenow={process}
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                            style={{ width: process + "% "}}
+    return (
+        <React.Fragment>
+            <Container maxWidth="lg" sx={{ mt: 10, mb: 4 }}>
+                <div className='row'>
+                    <div className='card'>
+                        <Title>Upload File</Title>
+                        <div className='card-body'>
+                            {currentFile && (
+                                <div 
+                                    className="progress-bar progress-bar-info progress-bar-striped"
+                                    role="progressbar"
+                                    aria-valuenow={progress}
+                                    aria-valuemin={0}
+                                    aria-valuemax={100}
+                                    style={{ width: progress + "%"}}
+                                >
+                                    {progress}%
+                                </div>
+                            )}
+                        </div>
+                        <label className="btn btn-default">
+                            <input type="file" onChange={(e) => selectFile(e)}/>
+                        </label>
+                        <button className='btn btn-success'
+                                //disabled={!selectFile}
+                                onClick={upload}
                         >
-                            {progress}%
+                            Upload
+                        </button>
+                        <div className="alert alert-light" role="alert">
+                            {message}
                         </div>
                     </div>
-                )}
-                <label className="btn btn-default">
-                    <input type="file" onChange={this.selectFile} />
-                </label>
-
-                <button className="btn btn-success"
-                    disabled={!selectedFiles}
-                    onClick={this.upload}
-                    >
-                    Upload
-                </button>
-                <div className="alert alert-light" role="alert">
-                    {message}
                 </div>
-
-                <div className="card">
-                    <div className="card-header">List of Files</div>
-                    <ul className="list-group list-group-flush">
-                        {fileInfos &&
-                            fileInfos.map((file, index) => (
-                                <li className="list-group-item" key={index}>
-                                    <a href={file.url}>{file.name}</a>
-                                </li>
-                         ))}
-                    </ul>
-                </div>
-            </div>
-        );
-    }
+            </Container>
+        </React.Fragment>
+    );
 }
