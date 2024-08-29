@@ -5,33 +5,25 @@ import uploadFileService from "../services/UploadFileService";
 
 
 export default function UploadFile() {
-    const [selectedFile, setSelectedFile] = useState([]);
-    const [currentFile, setCurrentFile] = useState([]);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [currentFile, setCurrentFile] = useState(null);
     const [progress, setProgress] = useState(0);
     const [message, setMessage] = useState('');
     const [fileInfos, setFileInfos] = useState([]);
     
     function selectFile(e) {
-        // console.log("asdf");
-        // console.log(e.target.files[0]);
-        setSelectedFile(e.target.files);
-        console.log(selectedFile);
+        setSelectedFile(e.target.files[0]);
     }
     
     function upload() {
         setProgress(0);
         setCurrentFile(selectedFile);
-        console.log(selectedFile);
-        console.log(currentFile);
     
-        uploadFileService(currentFile, (event) => {
+        uploadFileService(selectedFile, (event) => {
             setProgress(Math.round((100 * event.loaded) / event.total));
         })
         .then((response) => {
             setMessage(response.data.message);
-        })
-        .then((files) => {
-            setFileInfos(files.data);
         })
         .catch(() => {
             setProgress(0);
@@ -47,7 +39,7 @@ export default function UploadFile() {
                     <div className='card'>
                         <Title>Upload File</Title>
                         <div className='card-body'>
-                            {currentFile && (
+                            {selectedFile && (
                                 <div 
                                     className="progress-bar progress-bar-info progress-bar-striped"
                                     role="progressbar"
@@ -65,7 +57,7 @@ export default function UploadFile() {
                         </label>
                         <button className='btn btn-success'
                                 //disabled={!selectFile}
-                                onClick={upload}
+                                onClick={() => upload()}
                         >
                             Upload
                         </button>

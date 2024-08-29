@@ -1,5 +1,6 @@
 package com.example.financebackend.entity;
 
+import com.example.financebackend.dto.AccountRecordDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +14,20 @@ import java.util.Date;
 @Table(name = "account_records")
 //AccountRecord is the object for a single record posted to an account
 public class AccountRecord {
+    public AccountRecord(int accountType,
+                         Date date,
+                         float value,
+                         int categoryId,
+                         int categoryType,
+                         String comments
+                         ){
+        this.accountType = accountType;
+        this.date = date;
+        this.value = value;
+        this.categoryId = categoryId;
+        this.categoryType = categoryType;
+        this.comments = comments;
+    };
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id; //primary key id for each unique record
