@@ -50,10 +50,8 @@ public class FilesController {
             }
 
             try {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                 Date date = formatter.parse(accountRecord[1]);
-//                System.out.println(accountRecord[1]);
-//                System.out.println("Date: " + date);
                 AccountRecord newAccountRecord = new AccountRecord(
                         Integer.parseInt(accountRecord[0]), //Account Type
                         date, //Date
@@ -76,7 +74,6 @@ public class FilesController {
         try {
             InputStream inputStream = file.getInputStream();
             new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8)).lines().forEach(this::handleLine);
-            storageService.save(file);
 
             message = "Uploaded the file successfully: "+ file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
