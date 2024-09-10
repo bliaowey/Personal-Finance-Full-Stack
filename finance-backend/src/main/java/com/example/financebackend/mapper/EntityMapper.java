@@ -18,7 +18,6 @@ public class EntityMapper {
                 accountRecord.getAccountType(),
                 accountRecord.getDate(),
                 accountRecord.getValue(),
-                accountRecord.getCategoryId(),
                 accountRecord.getCategoryType(),
                 accountRecord.getComments()
         );
@@ -31,7 +30,6 @@ public class EntityMapper {
                 accountDto.getAccountType(),
                 accountDto.getDate(),
                 accountDto.getValue(),
-                accountDto.getCategoryId(),
                 accountDto.getCategoryType(),
                 accountDto.getComments()
         );

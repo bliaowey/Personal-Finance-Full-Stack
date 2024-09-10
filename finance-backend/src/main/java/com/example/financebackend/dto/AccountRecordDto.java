@@ -1,5 +1,7 @@
 package com.example.financebackend.dto;
 
+import com.example.financebackend.entity.AccountType;
+import com.example.financebackend.entity.CategoryType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,10 +16,9 @@ import java.util.Date;
 //AccountRecordDto is the data transfer object that maps backend AccountRecord object to the database
 public class AccountRecordDto {
     private int id;
-    private int accountType;
+    private AccountType accountType;
     private Date date;
     private float value;
-    private int categoryId;
-    private int categoryType;
+    private CategoryType categoryType;
     private String comments;
 }

@@ -12,20 +12,17 @@ export default function AddTransaction() {
     const [accountType, setAccountType] = useState('');
     const [date, setDate] = useState('');
     const [value, setValue] = useState('');
-    const [categoryId, setCategoryId] = useState('');
     const [categoryType, setCategoryType] = useState('');
     const [comments, setComments] = useState('');
 
     function saveAccountRecord(e) {
         e.preventDefault();
 
-        const accountRecord = {accountType, date, value, categoryId, categoryType, comments};
-        console.log(accountRecord);
-
-        addAccountRecord(accountRecord).then((response) => {
+        addAccountRecord(accountType, date, value, categoryType, comments).then((response) => {
             console.log(response.data);
-        });
+        })
     }
+    
 
     return (
         <React.Fragment>
@@ -36,10 +33,9 @@ export default function AddTransaction() {
                         <div className='card-body'>
                             <form>
                                 <div className='form-group mb-2'>
-                                    <label className='form-label'>Account Type</label>
+                                    <label className='form-label'>Account (ex. Bank, Credit Card)</label>
                                     <input
-                                        type='number'
-                                        min="1"
+                                        type='text'
                                         placeholder='Enter Account Type'
                                         value={accountType}
                                         className='form-control'
@@ -71,22 +67,9 @@ export default function AddTransaction() {
                                     </input>
                                 </div>
                                 <div className='form-group mb-2'>
-                                    <label className='form-label'>Category ID</label>
+                                    <label className='form-label'>Category (ex. Rent, Food)</label>
                                     <input
-                                        type='number'
-                                        min="1"
-                                        placeholder='Enter Category ID'
-                                        value={categoryId}
-                                        className='form-control'
-                                        onChange={(e) => setCategoryId(e.target.value)}
-                                    >
-                                    </input>
-                                </div>
-                                <div className='form-group mb-2'>
-                                    <label className='form-label'>Category Type</label>
-                                    <input
-                                        type='number'
-                                        min="1"
+                                        type='text'
                                         placeholder='Enter Category Type'
                                         value={categoryType}
                                         className='form-control'

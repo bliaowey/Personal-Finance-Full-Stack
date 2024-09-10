@@ -1,12 +1,22 @@
 package com.example.financebackend.controller;
 
 import com.example.financebackend.dto.AccountRecordDto;
+import com.example.financebackend.entity.AccountRecord;
+import com.example.financebackend.entity.AccountType;
+import com.example.financebackend.entity.CategoryType;
+import com.example.financebackend.mapper.EntityMapper;
+import com.example.financebackend.respository.AccountTypeRepository;
+import com.example.financebackend.respository.CategoryTypeRepository;
 import com.example.financebackend.service.AccountRecordService;
+import com.example.financebackend.service.AccountTypeService;
+import com.example.financebackend.service.CategoryTypeService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 //Controller for various HTTP requests for Account Records
@@ -18,10 +28,50 @@ public class AccountRecordController {
 
     private AccountRecordService accountRecordService;
 
+    @Autowired
+    AccountTypeRepository accountTypeRepository;
+
+    @Autowired
+    CategoryTypeRepository categoryTypeRepository;
+
     //Build Add Account Record REST API
     @PostMapping
-    public ResponseEntity<AccountRecordDto> createAccountRecord(@RequestBody AccountRecordDto accountRecordDto) {
-        AccountRecordDto savedAccRecord = accountRecordService.createAccountRecord(accountRecordDto);
+    public ResponseEntity<AccountRecordDto> createAccountRecord(@RequestParam("accountType") String accountType,
+                                                                @RequestParam("date") Date date,
+                                                                @RequestParam("value") float value,
+                                                                @RequestParam("categoryType") String categoryType,
+                                                                @RequestParam("comments") String comments) {
+        AccountRecord newAccountRecord = new AccountRecord();
+        newAccountRecord.setDate(date);
+        newAccountRecord.setValue(value);
+        newAccountRecord.setComments(comments);
+
+        List<AccountType> accountTypes = accountTypeRepository.findAll();
+        accountTypes.forEach((type) -> {
+            if (type.getAccountType() == accountType) {
+                newAccountRecord.setAccountType(type);
+            } else {
+                AccountType newAccountType = new AccountType();
+                newAccountType.setAccountType(accountType);
+                accountTypeRepository.save(newAccountType);
+                newAccountRecord.setAccountType(newAccountType);
+            }
+        });
+
+        List<CategoryType> categoryTypes = categoryTypeRepository.findAll();
+        categoryTypes.forEach((type) -> {
+            if (type.getCategoryType() == categoryType) {
+                newAccountRecord.setCategoryType(type);
+            } else {
+                CategoryType newCategoryType = new CategoryType();
+                newCategoryType.setCategoryType(categoryType);
+                categoryTypeRepository.save(newCategoryType);
+                newAccountRecord.setCategoryType(newCategoryType);
+            }
+        });
+
+        EntityMapper mapper = new EntityMapper();
+        AccountRecordDto savedAccRecord = accountRecordService.createAccountRecord(mapper.mapToAccountRecordDto(newAccountRecord));
         return new ResponseEntity<>(savedAccRecord, HttpStatus.CREATED);
     }
 

@@ -38,6 +38,21 @@ export default function UploadFile() {
                 <div className='row'>
                     <div className='card'>
                         <Title>Upload File</Title>
+                        <div>
+                            <p>
+                                Files must have five columns for each of the record attributes (not including ID):
+                            </p>
+                            <ul>
+                                <li>Column 1: Account Type</li>
+                                <li>Column 2: Date</li>
+                                <li>Column 3: Value</li>
+                                <li>Column 4: Category Type</li>
+                                <li>Column 5: Comments</li>
+                            </ul>
+                            <p>
+                                Dates must be in <b>yyyy-MM-dd</b> format (For Example: 2024-09-06 would be September 6th, 2024).
+                            </p>
+                        </div>
                         <div className='card-body'>
                             {selectedFile && (
                                 <div 

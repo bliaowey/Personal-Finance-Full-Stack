@@ -14,10 +14,14 @@ import lombok.Setter;
 @Table(name = "category_types")
 //CategoryType is the object for the specific budget categories for a posted record (ex. rent, food, travel, etc)
 public class CategoryType {
+    public CategoryType(String categoryType) {
+        this.categoryType = categoryType;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id; //primary key id for each unique category type
 
-    @Column(name = "category_type")
+    @Column(name = "category_type", unique = true)
     private String categoryType; //the name of the category type (ex. "rent", "food", "travel")
 }

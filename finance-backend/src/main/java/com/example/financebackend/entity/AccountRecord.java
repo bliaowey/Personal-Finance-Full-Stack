@@ -14,26 +14,29 @@ import java.util.Date;
 @Table(name = "account_records")
 //AccountRecord is the object for a single record posted to an account
 public class AccountRecord {
-    public AccountRecord(int accountType,
+    public AccountRecord(String accountType,
                          Date date,
                          float value,
-                         int categoryId,
-                         int categoryType,
+                         String categoryType,
                          String comments
                          ){
-        this.accountType = accountType;
         this.date = date;
         this.value = value;
-        this.categoryId = categoryId;
-        this.categoryType = categoryType;
         this.comments = comments;
+
+        AccountType type = new AccountType(accountType);
+        this.accountType = type;
+
+        CategoryType category = new CategoryType(categoryType);
+        this.categoryType = category;
     };
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id; //primary key id for each unique record
 
-    @Column(name = "account_type")
-    private int accountType; //the type of account (see AccountType class)
+    @ManyToOne
+    @JoinColumn(name = "account_type_id", referencedColumnName = "id")
+    private AccountType accountType;
 
     @Column(name = "date")
     private Date date; //the date the record was posted
@@ -41,11 +44,9 @@ public class AccountRecord {
     @Column(name = "value")
     private float value; //the value amount of money of the record
 
-    @Column(name = "category_id")
-    private int categoryId; //the id of the user-created category of which the record belongs to (see CategoryType class)
-
-    @Column(name = "category_type")
-    private int categoryType; //the category of the record (see CategoryType class
+    @ManyToOne
+    @JoinColumn(name = "category_type", referencedColumnName = "id")
+    private CategoryType categoryType; //the id of the user-created category of which the record belongs to (see CategoryType class)
 
     @Column(name = "comments")
     private String comments; //user comments about the record

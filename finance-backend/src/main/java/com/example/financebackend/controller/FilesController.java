@@ -52,16 +52,12 @@ public class FilesController {
             try {
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                 Date date = formatter.parse(accountRecord[1]);
-                AccountRecord newAccountRecord = new AccountRecord(
-                        Integer.parseInt(accountRecord[0]), //Account Type
+                accountController.createAccountRecord(accountRecord[0], //Account Type
                         date, //Date
                         Float.parseFloat(accountRecord[2]), //Value
-                        Integer.parseInt(accountRecord[3]), //Category ID
-                        Integer.parseInt(accountRecord[4]), //Category Type
-                        accountRecord[5] //Comments
-                );
-                AccountRecordDto dto = EntityMapper.mapToAccountRecordDto(newAccountRecord);
-                accountController.createAccountRecord(dto);
+                        accountRecord[3], //Category Type
+                        accountRecord[4] //Comments
+                        );
             } catch (ParseException e) {
                 e.getMessage();
             }

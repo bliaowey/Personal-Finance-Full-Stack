@@ -31,7 +31,6 @@ export default function Transactions() {
                   <th>Account Type</th>
                   <th>Date</th>
                   <th>Value</th>
-                  <th>Category ID</th>
                   <th>Category Type</th>
                   <th>Comments</th>
                 </TableRow>
@@ -44,7 +43,6 @@ export default function Transactions() {
                           <td>{accountRecord.accountType}</td>
                           <td>{accountRecord.date}</td>
                           <td>{accountRecord.value}</td>
-                          <td>{accountRecord.categoryId}</td>
                           <td>{accountRecord.categoryType}</td>
                           <td>{accountRecord.comments}</td>
                       </tr>
