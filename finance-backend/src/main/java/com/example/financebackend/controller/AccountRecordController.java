@@ -16,8 +16,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 //Controller for various HTTP requests for Account Records
 @CrossOrigin("*")
@@ -37,42 +40,50 @@ public class AccountRecordController {
     //Build Add Account Record REST API
     @PostMapping
     public ResponseEntity<AccountRecordDto> createAccountRecord(@RequestParam("accountType") String accountType,
-                                                                @RequestParam("date") Date date,
+                                                                @RequestParam("date") String date,
                                                                 @RequestParam("value") float value,
                                                                 @RequestParam("categoryType") String categoryType,
                                                                 @RequestParam("comments") String comments) {
-        AccountRecord newAccountRecord = new AccountRecord();
-        newAccountRecord.setDate(date);
-        newAccountRecord.setValue(value);
-        newAccountRecord.setComments(comments);
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+            Date date1 = formatter.parse(date);
 
-        List<AccountType> accountTypes = accountTypeRepository.findAll();
-        accountTypes.forEach((type) -> {
-            if (type.getAccountType() == accountType) {
-                newAccountRecord.setAccountType(type);
-            } else {
-                AccountType newAccountType = new AccountType();
-                newAccountType.setAccountType(accountType);
-                accountTypeRepository.save(newAccountType);
-                newAccountRecord.setAccountType(newAccountType);
-            }
-        });
+            AccountRecord newAccountRecord = new AccountRecord();
+            newAccountRecord.setDate(date1);
+            newAccountRecord.setValue(value);
+            newAccountRecord.setComments(comments);
 
-        List<CategoryType> categoryTypes = categoryTypeRepository.findAll();
-        categoryTypes.forEach((type) -> {
-            if (type.getCategoryType() == categoryType) {
-                newAccountRecord.setCategoryType(type);
-            } else {
-                CategoryType newCategoryType = new CategoryType();
-                newCategoryType.setCategoryType(categoryType);
-                categoryTypeRepository.save(newCategoryType);
-                newAccountRecord.setCategoryType(newCategoryType);
-            }
-        });
+            List<AccountType> accountTypes = accountTypeRepository.findAll();
+            accountTypes.forEach((type) -> {
+                if (type.getAccountType() == accountType) {
+                    newAccountRecord.setAccountType(type);
+                } else {
+                    AccountType newAccountType = new AccountType();
+                    newAccountType.setAccountType(accountType);
+                    accountTypeRepository.save(newAccountType);
+                    newAccountRecord.setAccountType(newAccountType);
+                }
+            });
 
-        EntityMapper mapper = new EntityMapper();
-        AccountRecordDto savedAccRecord = accountRecordService.createAccountRecord(mapper.mapToAccountRecordDto(newAccountRecord));
-        return new ResponseEntity<>(savedAccRecord, HttpStatus.CREATED);
+            List<CategoryType> categoryTypes = categoryTypeRepository.findAll();
+            categoryTypes.forEach((type) -> {
+                if (type.getCategoryType() == categoryType) {
+                    newAccountRecord.setCategoryType(type);
+                } else {
+                    CategoryType newCategoryType = new CategoryType();
+                    newCategoryType.setCategoryType(categoryType);
+                    categoryTypeRepository.save(newCategoryType);
+                    newAccountRecord.setCategoryType(newCategoryType);
+                }
+            });
+
+            EntityMapper mapper = new EntityMapper();
+            AccountRecordDto savedAccRecord = accountRecordService.createAccountRecord(mapper.mapToAccountRecordDto(newAccountRecord));
+            return new ResponseEntity<>(savedAccRecord, HttpStatus.CREATED);
+        } catch (ParseException e) {
+            e.getMessage();
+        }
+        return null;
     }
 
     //Build Get Account Record By ID REST API

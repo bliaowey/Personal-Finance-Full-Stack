@@ -11,4 +11,10 @@ export const addAccountRecord = (accountType,
                                 value,
                                 categoryType,
                                 comments
-) => axios.post(REST_API_BASE_URL, {accountType, date, value, categoryType, comments});
+) => axios.post(REST_API_BASE_URL, null, {params: {
+    accountType: accountType,
+    date: date,
+    value: value,
+    categoryType: categoryType,
+    comments: comments
+}});

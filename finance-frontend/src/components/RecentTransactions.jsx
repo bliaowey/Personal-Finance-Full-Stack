@@ -41,10 +41,10 @@ export default function RecentTransactions() {
             accountRecords.map(accountRecord =>
                 <tr key={accountRecord.id}>
                     <td>{accountRecord.id}</td>
-                    <td>{accountRecord.accountType}</td>
+                    <td>{accountRecord.accountType.accountType}</td>
                     <td>{accountRecord.date}</td>
                     <td>{accountRecord.value}</td>
-                    <td>{accountRecord.categoryType}</td>
+                    <td>{accountRecord.categoryType.categoryType}</td>
                     <td>{accountRecord.comments}</td>
                 </tr>
                 )

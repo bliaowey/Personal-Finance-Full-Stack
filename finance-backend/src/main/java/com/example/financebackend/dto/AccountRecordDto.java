@@ -16,9 +16,9 @@ import java.util.Date;
 //AccountRecordDto is the data transfer object that maps backend AccountRecord object to the database
 public class AccountRecordDto {
     private int id;
-    private AccountType accountType;
+    private String accountType;
     private Date date;
     private float value;
-    private CategoryType categoryType;
+    private String categoryType;
     private String comments;
 }

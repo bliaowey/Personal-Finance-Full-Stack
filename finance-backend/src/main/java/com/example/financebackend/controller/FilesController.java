@@ -49,18 +49,12 @@ public class FilesController {
                 throw new RuntimeException("Too many columns in the file!");
             }
 
-            try {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-                Date date = formatter.parse(accountRecord[1]);
-                accountController.createAccountRecord(accountRecord[0], //Account Type
-                        date, //Date
-                        Float.parseFloat(accountRecord[2]), //Value
-                        accountRecord[3], //Category Type
-                        accountRecord[4] //Comments
-                        );
-            } catch (ParseException e) {
-                e.getMessage();
-            }
+            accountController.createAccountRecord(accountRecord[0], //Account Type
+                    accountRecord[1], //Date
+                    Float.parseFloat(accountRecord[2]), //Value
+                    accountRecord[3], //Category Type
+                    accountRecord[4] //Comments
+            );
         }
     }
 

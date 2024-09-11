@@ -3,11 +3,13 @@ package com.example.financebackend.mapper;
 import com.example.financebackend.dto.AccountRecordDto;
 import com.example.financebackend.dto.AccountTypeDto;
 import com.example.financebackend.dto.CategoryTypeDto;
-import com.example.financebackend.dto.RecordTypeDto;
 import com.example.financebackend.entity.AccountRecord;
 import com.example.financebackend.entity.AccountType;
 import com.example.financebackend.entity.CategoryType;
-import com.example.financebackend.entity.RecordType;
+import com.example.financebackend.respository.AccountTypeRepository;
+import com.example.financebackend.respository.CategoryTypeRepository;
+
+import java.util.List;
 
 //EntityMapper is the class that maps the data from my backend entities to a Data Transfer Object and vice versa
 public class EntityMapper {
@@ -15,24 +17,37 @@ public class EntityMapper {
     public static AccountRecordDto mapToAccountRecordDto(AccountRecord accountRecord) {
         return new AccountRecordDto(
                 accountRecord.getId(),
-                accountRecord.getAccountType(),
+                accountRecord.getAccountType().getAccountType(),
                 accountRecord.getDate(),
                 accountRecord.getValue(),
-                accountRecord.getCategoryType(),
+                accountRecord.getCategoryType().getCategoryType(),
                 accountRecord.getComments()
         );
     }
 
+    static AccountTypeRepository accountTypeRepository;
+    static CategoryTypeRepository categoryTypeRepository;
     //Maps data from an AccountRecord object to an AccountRecordDto object
     public static AccountRecord mapToAccountRecord(AccountRecordDto accountDto) {
-        return new AccountRecord(
-                accountDto.getId(),
-                accountDto.getAccountType(),
-                accountDto.getDate(),
-                accountDto.getValue(),
-                accountDto.getCategoryType(),
-                accountDto.getComments()
-        );
+        AccountRecord newAccountRecord = new AccountRecord();
+        newAccountRecord.setValue(accountDto.getValue());
+        newAccountRecord.setDate(accountDto.getDate());
+        newAccountRecord.setComments(accountDto.getComments());
+
+        List<AccountType> accountTypes = accountTypeRepository.findAll();
+        accountTypes.forEach((type) -> {
+            if (type.getAccountType() == accountDto.getAccountType()) {
+                newAccountRecord.setAccountType(type);
+            }
+        });
+
+        List<CategoryType> categoryTypes = categoryTypeRepository.findAll();
+        categoryTypes.forEach((type) -> {
+            if (type.getCategoryType() == accountDto.getCategoryType()) {
+                newAccountRecord.setCategoryType(type);
+            }
+        });
+        return newAccountRecord;
     }
 
     //Maps data from an AccountType object to an AccountTypeDto object
@@ -64,22 +79,6 @@ public class EntityMapper {
         return new CategoryType(
                 categoryTypeDto.getId(),
                 categoryTypeDto.getCategoryType()
-        );
-    }
-
-    //Maps data from an RecordType object to an RecordTypeDto object
-    public static RecordTypeDto mapToRecordTypeDto(RecordType recordType) {
-        return new RecordTypeDto(
-                recordType.getId(),
-                recordType.getCategory()
-        );
-    }
-
-    //Maps data from an RecordTypeDto object to an RecordType object
-    public static RecordType mapToRecordType(RecordTypeDto recordTypeDto) {
-        return new RecordType(
-                recordTypeDto.getId(),
-                recordTypeDto.getRecordType()
         );
     }
 }
