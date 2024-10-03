@@ -1,5 +1,6 @@
 package com.example.financebackend.service.impl;
 
+import com.example.financebackend.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -12,11 +13,12 @@ import org.springframework.stereotype.Service;
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class JwtServiceImpl {
-    private String generateToken(UserDetails userDetails) {
+public class JwtServiceImpl implements JwtService {
+    public String generateToken(UserDetails userDetails) {
         return Jwts.builder().setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() * 1000 * 60 * 24))
@@ -24,7 +26,15 @@ public class JwtServiceImpl {
                 .compact();
     }
 
-    public String extractUsername(String token) {
+    public String generateRefreshToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+        return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() * 604800000))
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -43,7 +53,7 @@ public class JwtServiceImpl {
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String userName = extractUsername(token);
+        final String userName = extractUserName(token);
         return (userName.equals(userDetails.getUsername()) && isTokenExpired(token));
     }
 
