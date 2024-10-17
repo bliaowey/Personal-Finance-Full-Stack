@@ -1,7 +1,5 @@
-import { Toolbar } from '@mui/material'
 import './App.css'
 import AddTransaction from './components/AddTransaction'
-import Dashboard from './components/Dashboard'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
 import HomePage from './components/HomePage'
@@ -12,6 +10,8 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import UploadFile from './components/UploadFile'
+import SignUp from './components/Authentication/SignUp'
+
 
 function Copyright(props) {
   return (
@@ -45,6 +45,8 @@ function App() {
               <Route path='/all-transactions' element = {<Transactions />}></Route>
               {/* http://localhost:3000/upload-file */}
               <Route path='/upload-file' element={<UploadFile />}></Route>
+              {/* http://localhost:3000/sign-up */}
+              <Route path='/sign-up' element = {<SignUp />}></Route>
             </Routes>
           </Box>
         <Copyright sx={{ pt: 4 }} />

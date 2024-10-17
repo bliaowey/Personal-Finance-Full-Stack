@@ -4,9 +4,6 @@ import Title from './Title';
 import { Container } from '@mui/material';
 import { addAccountRecord } from '../services/AccountRecordService';
 
-function preventDefault(event) {
-  event.preventDefault();
-}
 
 export default function AddTransaction() {
     const [accountType, setAccountType] = useState('');
