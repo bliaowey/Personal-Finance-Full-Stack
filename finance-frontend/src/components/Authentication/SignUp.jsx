@@ -3,12 +3,14 @@ import { useState } from "react";
 import { Container } from '@mui/material';
 import Title from '../Title';
 import { signup } from '../../services/authentication/AuthenticationService';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     function saveUser(e) {
         e.preventDefault();
@@ -16,6 +18,8 @@ export default function SignUp() {
         signup(firstName, lastName, email, password).then((response) => {
             console.log(response.data);
         })
+
+        navigate('/home');
 
     }
 
@@ -73,7 +77,7 @@ export default function SignUp() {
                                 </div>
                             </form>
                         </div>
-                        <button className='btn btn-primary mb-2' onClick={saveUser}>Add</button>
+                        <button className='btn btn-primary mb-2' onClick={saveUser}>Sign Up</button>
                     </div>
                 </div>
             </Container>

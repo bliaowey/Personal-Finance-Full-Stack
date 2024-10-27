@@ -11,14 +11,6 @@ import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import { Link } from 'react-router-dom';
 
-/* THIS CLASS IS THE SIDEBAR WITH ALL OF THE BUTTONS
-
-THE PROBLEM HERE IS THAT THE NAVIGATOR NEEDS TO BE DECLARED IN THE RETURN STATEMENT
-OF A FUNCTION. 
-HOWEVER, BOTH COMPONENTS ARE DECLARED AS VARIABLES NOT FUNCTIONS. I TRIED TO CONVERT THEM
-TO FUNCTIONS, BUT THAT CAUSED MORE PROBLEMS.
-*/
-
 
 export const mainListItems = (
   <React.Fragment>

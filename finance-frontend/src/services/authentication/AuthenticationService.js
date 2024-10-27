@@ -11,16 +11,17 @@ export const signup = (firstName, lastName,  email, password) =>
 
 
 export function login(email, password) {
-    return axios.post(url + "signin", {
+    return axios.post(url + "login", {
         email,
         password
     })
     .then(response => {
         if (response.data.accessToken) {
             localStorage.setItem("user", JSON.stringify(response.data));
+            return true;
         }
 
-        return response.data;
+        return false;
     });
 }
 

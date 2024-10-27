@@ -2,7 +2,7 @@ package com.example.financebackend.service.impl;
 
 import com.example.financebackend.dto.JwtAuthenticationResponse;
 import com.example.financebackend.dto.RefreshTokenRequest;
-import com.example.financebackend.dto.SignInRequest;
+import com.example.financebackend.dto.LoginRequest;
 import com.example.financebackend.dto.SignupRequest;
 import com.example.financebackend.entity.User;
 import com.example.financebackend.respository.UserRepository;
@@ -34,10 +34,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return userRepository.save(user);
     }
 
-    public JwtAuthenticationResponse signIn(SignInRequest signInRequest) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getEmail(),
-                signInRequest.getPassword()));
-        var user = userRepository.findByEmail(signInRequest.getEmail()).orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
+    public JwtAuthenticationResponse login(LoginRequest loginRequest) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
+                loginRequest.getPassword()));
+        var user = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
         var jwt = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
 

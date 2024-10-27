@@ -2,7 +2,7 @@ package com.example.financebackend.controller;
 
 import com.example.financebackend.dto.JwtAuthenticationResponse;
 import com.example.financebackend.dto.RefreshTokenRequest;
-import com.example.financebackend.dto.SignInRequest;
+import com.example.financebackend.dto.LoginRequest;
 import com.example.financebackend.dto.SignupRequest;
 import com.example.financebackend.entity.User;
 import com.example.financebackend.service.AuthenticationService;
@@ -22,9 +22,9 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.signUp(signupRequest));
     }
 
-    @PostMapping("/signin")
-    public ResponseEntity<JwtAuthenticationResponse> signIn(@RequestBody SignInRequest signInRequest) {
-        return ResponseEntity.ok(authenticationService.signIn(signInRequest));
+    @PostMapping("/login")
+    public ResponseEntity<JwtAuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
+        return ResponseEntity.ok(authenticationService.login(loginRequest));
     }
 
     @PostMapping("/refresh")

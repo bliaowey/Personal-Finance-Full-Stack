@@ -11,7 +11,8 @@ import Link from '@mui/material/Link';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import UploadFile from './components/UploadFile'
 import SignUp from './components/Authentication/SignUp'
-
+import Login from './components/Authentication/Login'
+import WelcomePage from './components/WelcomePage'
 
 function Copyright(props) {
   return (
@@ -37,16 +38,20 @@ function App() {
             <Header />
             <Sidebar />
             <Routes>
-              {/* //http://localhost:3000 */}
-              <Route path='/' element = { <HomePage />}></Route>
-              {/* //http://localhost:3000/add-transaction */}
+              {/* http://localhost:3000/ */}
+              <Route path='/' element = { <WelcomePage />}></Route>
+              {/* http://localhost:3000/home */}
+              <Route path='/home' element = { <HomePage />}></Route>
+              {/* http://localhost:3000/add-transaction */}
               <Route path='/add-transaction' element = {<AddTransaction />}></Route>
               {/* http://localhost:3000/all-transactions */}
               <Route path='/all-transactions' element = {<Transactions />}></Route>
               {/* http://localhost:3000/upload-file */}
-              <Route path='/upload-file' element={<UploadFile />}></Route>
+              <Route path='/upload-file' element = {<UploadFile />}></Route>
               {/* http://localhost:3000/sign-up */}
               <Route path='/sign-up' element = {<SignUp />}></Route>
+              {/* http://localhost:3000/login */}
+              <Route path='/login' element = {<Login />}></Route>
             </Routes>
           </Box>
         <Copyright sx={{ pt: 4 }} />
