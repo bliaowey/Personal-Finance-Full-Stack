@@ -21,16 +21,16 @@ public class JwtServiceImpl implements JwtService {
     public String generateToken(UserDetails userDetails) {
         return Jwts.builder().setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() * 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 86400000))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public String generateRefreshToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        System.out.println(new Date(System.currentTimeMillis() * 604800000));
+        System.out.println(new Date(System.currentTimeMillis() + 604800000));
         return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() * 604800000))
+                .setExpiration(new Date(System.currentTimeMillis() + 604800000))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

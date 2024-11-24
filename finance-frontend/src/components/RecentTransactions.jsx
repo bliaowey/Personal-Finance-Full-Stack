@@ -22,6 +22,7 @@ export default function RecentTransactions() {
             console.error(error);
         })
     }, []);
+    
   return (
     <React.Fragment>
       <Title>Recent Transactions</Title>
